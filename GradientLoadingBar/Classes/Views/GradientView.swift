@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class GradientView: UIView, CAAnimationDelegate {
+public final class GradientView: UIView, CAAnimationDelegate {
 
     private struct Constants {
         static let fadeInAnimationKey = "GradientView--fade-in"
@@ -24,7 +24,7 @@ final class GradientView: UIView, CAAnimationDelegate {
 
     // MARK: - Initializers
 
-    init(durations: Durations, gradientColors: GradientColors) {
+    public init(durations: Durations, gradientColors: GradientColors) {
         self.durations = durations
         self.gradientColors = gradientColors
 
@@ -59,7 +59,7 @@ final class GradientView: UIView, CAAnimationDelegate {
 
     // MARK: - Layout
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
 
         // Unfortunately CGLayer is not affected by autolayout, so any change in the
@@ -76,7 +76,7 @@ final class GradientView: UIView, CAAnimationDelegate {
 
     // MARK: - Progress animations (automatically triggered via delegates)
 
-    func animationDidStart(_ anim: CAAnimation) {
+    public func animationDidStart(_ anim: CAAnimation) {
         if anim == gradientLayer.animation(forKey: Constants.fadeInAnimationKey) {
             // Start progress animation
             let animation = CABasicAnimation(keyPath: "position")
@@ -91,7 +91,7 @@ final class GradientView: UIView, CAAnimationDelegate {
         }
     }
 
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if anim == gradientLayer.animation(forKey: Constants.fadeOutAnimationKey) {
             // Stop progress animation
             gradientLayer.removeAnimation(forKey: Constants.progressAnimationKey)
@@ -117,7 +117,7 @@ final class GradientView: UIView, CAAnimationDelegate {
 
     // MARK: - Public trigger methods
 
-    func show() {
+    public func show() {
         // Remove possible existing fade-out animation
         gradientLayer.removeAnimation(forKey: Constants.fadeOutAnimationKey)
 
@@ -130,7 +130,7 @@ final class GradientView: UIView, CAAnimationDelegate {
         )
     }
 
-    func hide() {
+    public func hide() {
         // Remove possible existing fade-in animation
         gradientLayer.removeAnimation(forKey: Constants.fadeInAnimationKey)
 
